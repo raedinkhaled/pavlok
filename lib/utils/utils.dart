@@ -1,0 +1,1 @@
+int passwordLengthGlobal = 6;
