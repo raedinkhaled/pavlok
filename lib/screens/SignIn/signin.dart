@@ -39,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    'assets/logo2.svg', // Replace with the path to your SVG logo
+                    'assets/logo2.svg',
                     height: 100,
                   ),
                   SizedBox(height: 16),
@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return 'Email is required';
                       }
-                      // Add more complex email validation if needed
+
                       return null;
                     },
                   ),
@@ -73,7 +73,7 @@ class LoginScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return 'Password is required';
                       }
-                      // Add more complex password validation if needed
+
                       return null;
                     },
                   ),

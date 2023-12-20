@@ -40,7 +40,7 @@ class SignupScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    'assets/logo2.svg', // Replace with your SVG logo path
+                    'assets/logo2.svg',
                     width: 100,
                     height: 100,
                   ),
@@ -59,7 +59,6 @@ class SignupScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return 'Email is required';
                       }
-                      // Add more complex email validation if needed
                       return null;
                     },
                   ),
@@ -75,7 +74,6 @@ class SignupScreen extends StatelessWidget {
                       if (value!.isEmpty) {
                         return 'Password is required';
                       }
-                      // Add more complex password validation if needed
                       return null;
                     },
                   ),
@@ -116,7 +114,6 @@ class SignupScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: TextButton(
                       onPressed: () {
-                        // Navigate back to the login screen
                         Navigator.pop(context);
                       },
                       child: Text('Already have an account? Log in'),

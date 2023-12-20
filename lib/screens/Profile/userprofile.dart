@@ -32,7 +32,6 @@ class EditUserInfo extends StatelessWidget {
           } else if (state is UserLoadingState) {
             return Center(child: CircularProgressIndicator());
           } else {
-            // Handle error or other states
             return Center(child: Text('Something went wrong!'));
           }
         }),
@@ -91,7 +90,6 @@ class EditUserInfo extends StatelessWidget {
             String username = usernameController.text;
             String firstName = firstNameController.text;
             String lastName = lastNameController.text;
-            // Perform the necessary actions with the updated user info
           },
           child: Text('Submit'),
         ),
