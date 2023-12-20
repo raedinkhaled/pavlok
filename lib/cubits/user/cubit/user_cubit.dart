@@ -91,7 +91,7 @@ class UserCubit extends Cubit<UserState> {
         if (response.statusCode == 200 && responseBody.containsKey('user')) {
           final user = User.fromJson(responseBody['user']);
           _apiService.saveUserData(user); // Save user data locally
-          emit(UserLoadedState(user));
+          emit(UserInfoLoadedState(user));
         } else {
           emit(UserErrorState('Invalid response from server'));
         }

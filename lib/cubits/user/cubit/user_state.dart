@@ -20,6 +20,15 @@ class UserLoadedState extends UserState {
   List<Object?> get props => [user];
 }
 
+class UserInfoLoadedState extends UserState {
+  final User user;
+
+  const UserInfoLoadedState(this.user);
+
+  @override
+  List<Object?> get props => [user];
+}
+
 class UserUpdatedState extends UserState {
   final User user;
 

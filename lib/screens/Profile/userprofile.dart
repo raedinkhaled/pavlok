@@ -11,6 +11,14 @@ class EditUserInfo extends StatelessWidget {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
 
+  static const String routeName = '/profile';
+
+  static Route route() {
+    return MaterialPageRoute(
+        builder: (_) => EditUserInfo(),
+        settings: RouteSettings(name: routeName));
+  }
+
   @override
   Widget build(BuildContext context) {
     context.read<UserCubit>().performUserAction(GetUserEvent());
@@ -19,7 +27,7 @@ class EditUserInfo extends StatelessWidget {
       padding: EdgeInsets.all(16.0),
       child: BlocBuilder<UserCubit, UserState>(
         builder: ((context, state) {
-          if (state is UserLoadedState) {
+          if (state is UserInfoLoadedState) {
             return _buildUserForm(context, state.user);
           } else if (state is UserLoadingState) {
             return Center(child: CircularProgressIndicator());
@@ -33,11 +41,19 @@ class EditUserInfo extends StatelessWidget {
   }
 
   Widget _buildUserForm(BuildContext context, User user) {
+    emailController.text = user.email ?? "";
+    usernameController.text = user.username ?? "";
+    firstNameController.text = user.firstName ?? "";
+    lastNameController.text = user.lastName ?? "";
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        Text('USER INFO', style: Theme.of(context).textTheme.displayMedium),
+        SizedBox(
+          height: 16.0,
+        ),
         TextFormField(
-          initialValue: user.email,
           controller: emailController,
           decoration: InputDecoration(
             labelText: 'Email',
@@ -46,7 +62,6 @@ class EditUserInfo extends StatelessWidget {
         ),
         SizedBox(height: 16.0),
         TextFormField(
-          initialValue: user.username,
           controller: usernameController,
           decoration: InputDecoration(
             labelText: 'Username',
@@ -55,7 +70,6 @@ class EditUserInfo extends StatelessWidget {
         ),
         SizedBox(height: 16.0),
         TextFormField(
-          initialValue: user.firstName,
           controller: firstNameController,
           decoration: InputDecoration(
             labelText: 'First Name',
@@ -64,7 +78,6 @@ class EditUserInfo extends StatelessWidget {
         ),
         SizedBox(height: 16.0),
         TextFormField(
-          initialValue: user.lastName,
           controller: lastNameController,
           decoration: InputDecoration(
             labelText: 'Last Name',
@@ -74,7 +87,6 @@ class EditUserInfo extends StatelessWidget {
         SizedBox(height: 16.0),
         ElevatedButton(
           onPressed: () {
-            // TODO: Implement submit functionality
             String email = emailController.text;
             String username = usernameController.text;
             String firstName = firstNameController.text;

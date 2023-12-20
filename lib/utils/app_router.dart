@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pavlok/cubits/user/cubit/user_cubit.dart';
 import 'package:pavlok/screens/Home/home.dart';
+import 'package:pavlok/screens/Profile/userprofile.dart';
 import 'package:pavlok/screens/SignIn/signin.dart';
 import 'package:pavlok/screens/SignUp/signup.dart';
 import 'package:pavlok/screens/Stimulus/createStimulus.dart';
@@ -25,6 +26,8 @@ class AppRouter {
         );
       case '/create':
         return MaterialPageRoute(builder: (context) => CreateStimulusScreen());
+      case '/profile':
+        return MaterialPageRoute(builder: (context) => EditUserInfo());
       default:
         return _errorRoute();
     }
