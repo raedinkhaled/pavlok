@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                   IconButton(
                     icon: Icon(Icons.add_circle),
                     onPressed: () {
-                      Navigator.popAndPushNamed(context, '/create');
+                      Navigator.pushNamed(context, '/create');
                     },
                   ),
                 ],
@@ -97,7 +97,7 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 20,
               ),
-              Expanded(child: BlocBuilder<UserCubit, UserState>(
+              BlocBuilder<UserCubit, UserState>(
                 builder: (context, userState) {
                   if (userState is UserLoadedState) {
                     context
@@ -110,16 +110,17 @@ class HomeScreen extends StatelessWidget {
                       if (state is StimulusLoading) {
                         return CircularProgressIndicator();
                       } else if (state is StimulusLoaded) {
-                        return ListView.builder(
-                            itemCount: state.stimulusList.length,
-                            itemBuilder: (context, index) => stimulusTile(
-                                  icon: Icons.favorite,
-                                  title: state.stimulusList[index].type,
-                                  reason: state.stimulusList[index].reason ??
-                                      'No reason',
-                                  value: state.stimulusList[index].value
-                                      .toString(),
-                                ));
+                        return Expanded(
+                          child: ListView.builder(
+                              itemCount: state.stimulusList.length,
+                              itemBuilder: (context, index) => stimulusTile(
+                                    title: state.stimulusList[index].type,
+                                    reason: state.stimulusList[index].reason ??
+                                        'No reason',
+                                    value: state.stimulusList[index].value
+                                        .toString(),
+                                  )),
+                        );
                       } else if (state is StimulusError) {
                         print(state.message);
                         return Text(state.message);
@@ -150,7 +151,7 @@ class HomeScreen extends StatelessWidget {
                     },
                   );
                 },
-              )),
+              ),
             ],
           ),
         ),
@@ -160,20 +161,28 @@ class HomeScreen extends StatelessWidget {
 }
 
 class stimulusTile extends StatelessWidget {
-  final IconData icon;
   final String title;
   final String reason;
   final String value;
 
   const stimulusTile(
       {super.key,
-      required this.icon,
       required this.title,
       required this.reason,
       required this.value});
 
   @override
   Widget build(BuildContext context) {
+    IconData icon;
+    if (title == 'beep') {
+      icon = Icons.notifications_active;
+    } else if (this.title == 'vibe') {
+      icon = Icons.vibration;
+    } else if (this.title == 'zap') {
+      icon = Icons.flash_on;
+    } else {
+      icon = Icons.favorite;
+    }
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Container(
@@ -187,7 +196,7 @@ class stimulusTile extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(12)),
               child: Icon(
-                this.icon,
+                icon,
                 color: Theme.of(context).cardColor,
               )),
           title: Text('$title - $value %'),

@@ -90,6 +90,15 @@ class StimulusCubit extends Cubit<StimulusState> {
           final stimulus = Stimulus.fromJson(stimulusCreated);
           emit(StimulusCreated(stimulus));
           print('The state Created was emitted');
+        } else {
+          if (responseBody.containsKey('errors')) {
+            var messageError = responseBody['errors'][0];
+            if (messageError is String) {
+              emit(StimulusError(messageError));
+            } else if (messageError.containsKey('msg')) {
+              emit(StimulusError(messageError['msg']));
+            }
+          }
         }
       } else {
         emit(StimulusError('Error: Token wass null'));

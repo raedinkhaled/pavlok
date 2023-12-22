@@ -84,7 +84,7 @@ class LoginScreen extends StatelessWidget {
                       child: BlocConsumer<UserCubit, UserState>(
                         listener: (context, state) {
                           if (state is UserLoadedState) {
-                            Navigator.pushNamed(context, '/');
+                            Navigator.popAndPushNamed(context, '/');
                           } else if (state is UserErrorState) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text(state.error)),
@@ -114,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/signup');
+                        Navigator.popAndPushNamed(context, '/signup');
                       },
                       child: Text('Don\'t have an account? Sign up'),
                     ),

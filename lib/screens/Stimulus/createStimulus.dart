@@ -107,12 +107,6 @@ class CreateStimulusScreen extends StatelessWidget {
                       decoration: InputDecoration(
                         labelText: 'Reason',
                       ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Reason is required';
-                        }
-                        return null;
-                      },
                     ),
                     SizedBox(height: 32),
                     Align(

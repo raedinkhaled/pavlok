@@ -69,7 +69,14 @@ class UserCubit extends Cubit<UserState> {
           _apiService.saveUserData(user); // Save user data locally (if needed)
           emit(UserLoadedState(user)); // Emit success state
         } else {
-          // Handle different types of errors (e.g., validation errors)
+          if (responseBody.containsKey('errors')) {
+            var messageError = responseBody['errors'][0];
+            if (messageError is String) {
+              emit(UserErrorState(messageError));
+            } else if (messageError.containsKey('msg')) {
+              emit(UserErrorState(messageError['msg']));
+            }
+          }
           emit(UserErrorState('Registration failed'));
         }
       } else if (event is LoginEvent) {
@@ -82,7 +89,16 @@ class UserCubit extends Cubit<UserState> {
           _apiService.saveUserData(user); // Save user data locally
           emit(UserLoadedState(user));
         } else {
-          emit(UserErrorState('Invalid response from server'));
+          if (responseBody.containsKey('errors')) {
+            var messageError = responseBody['errors'][0];
+            if (messageError is String) {
+              emit(UserErrorState(messageError));
+            } else if (messageError.containsKey('msg')) {
+              emit(UserErrorState(messageError['msg']));
+            } else {
+              emit(UserErrorState('Invalid response from server'));
+            }
+          }
         }
       } else if (event is GetUserEvent) {
         User? user = await _apiService.checkLoginStatus();
@@ -93,7 +109,16 @@ class UserCubit extends Cubit<UserState> {
           _apiService.saveUserData(user); // Save user data locally
           emit(UserInfoLoadedState(user));
         } else {
-          emit(UserErrorState('Invalid response from server'));
+          if (responseBody.containsKey('errors')) {
+            var messageError = responseBody['errors'][0];
+            if (messageError is String) {
+              emit(UserErrorState(messageError));
+            } else if (messageError.containsKey('msg')) {
+              emit(UserErrorState(messageError['msg']));
+            } else {
+              emit(UserErrorState('Invalid response from server'));
+            }
+          }
         }
       } else if (event is UpdateUserEvent) {
         final response = await _apiService.updateUser(
